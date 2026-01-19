@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Испытания для Котюсика</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffd6e8, #fff0f5);
+      text-align: center;
+      padding: 40px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      background: #ff85b3;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #ff5c9d;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card" id="quiz">
+  <h2 id="question"></h2>
+  <div id="answers"></div>
+</div>
+
+<script>
+const quiz = [
+  {
+    q: "Почему Котюсик всегда побеждает?",
+    a: ["Потому что он самый сильный", "Потому что он тренируется", "Потому что его ждёт Кисулик", "Потому что он злой"],
+    correct: 0
+  },
+  {
+    q: "Что делает Кисулик, когда Котюсик далеко?",
+    a: ["Скучает", "Ждёт", "Думает о нём", "Всё сразу"],
+    correct: 3
+  },
+  {
+    q: "Если Котюсик — сила, а Кисулик — нежность, то вместе они — ?",
+    a: ["Команда", "Любовь", "Дом", "Всё перечисленное"],
+    correct: 3
+  },
+  {
+    q: "Что сильнее любого удара?",
+    a: ["Лапа", "Мышцы", "Любовь Котюсика", "Рык"],
+    correct: 2
+  },
+  {
+    q: "Главный приз для Котюсика после всех боёв?",
+    a: ["Медаль", "Деньги", "Слава", "Кисулик в объятиях"],
+    correct: 3
+  }
+];
+
+let current = 0;
+
+const questionEl = document.getElementById("question");
+const answersEl = document.getElementById("answers");
+
+function loadQuestion() {
+  const q = quiz[current];
+  questionEl.innerText = q.q;
+  answersEl.innerHTML = "";
+  q.a.forEach((text, index) => {
+    const btn = document.createElement("button");
+    btn.innerText = text;
+    btn.onclick = () => checkAnswer(index);
+    answersEl.appendChild(btn);
+  });
+}
+
+function checkAnswer(index) {
+  if (index === quiz[current].correct) {
+    current++;
+    if (current < quiz.length) {
+      loadQuestion();
+    } else {
+      showFinal();
+    }
+  } else {
+    alert("Котюсик не сдаётся! Попробуй ещё раз 💪🐾");
+  }
+}
+
+function showFinal() {
+  document.getElementById("quiz").innerHTML = `
+    <h2>Ты прошёл все испытания 💖</h2>
+    <p>Кисулик обожает тебя!!!</p>
+    <img src="love.png">
+    <p><b>Ты — мой герой. Я тебя зацелую 💞</b></p>
+  `;
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
