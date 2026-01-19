@@ -1,1 +1,1 @@
-# kotusik-quest
+# kotusik
